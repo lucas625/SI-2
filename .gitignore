@@ -1,0 +1,6 @@
+# ---------- Repositório dos agentes ----------
+rlcard
+
+# ---------- Python ----------
+venv
+*.pyc
