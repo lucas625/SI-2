@@ -4,3 +4,7 @@ rlcard
 # ---------- Python ----------
 venv
 *.pyc
+
+# ---------- IDEs ----------
+.vscode
+.idea
