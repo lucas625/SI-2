@@ -5,6 +5,7 @@ Script for Q learning.
 import argparse
 
 from learner import QLearner
+from learner import TDLearner
 
 
 def _arguments_definition():
@@ -40,5 +41,5 @@ def _arguments_definition():
 if __name__ == '__main__':
     args = _arguments_definition()
 
-    learner = QLearner()
+    learner = TDLearner()
     q_learning_table = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon_min)
