@@ -5,7 +5,10 @@ Module for learning with Q learn.
 import random
 from collections import defaultdict
 
+import gym
 import numpy as np
+
+from evaluator import QEvaluator
 
 
 class QLearner:
@@ -13,15 +16,15 @@ class QLearner:
     Class for controlling the Q learning.
     """
 
-    def __init__(self, env):
+    def __init__(self):
         """
         Class constructor.
-        :param BlackjackEnv env: the blackjack environment.
         """
-        self._env = env
+        self._env = gym.make('Blackjack-v0')
         self._number_of_actions = self._env.action_space.n
+        self._evaluator = QEvaluator(self._env)
 
-    def learn(self, number_of_episodes, alpha, gamma=1.0, epsilon_min=0.01):
+    def learn(self, number_of_episodes, alpha, gamma, epsilon_min):
         """
         Q-Learning - TD Control
         :param int number_of_episodes: the number of episodes.

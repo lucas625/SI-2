@@ -1,15 +1,44 @@
-import gym
+"""
+Script for Q learning.
+"""
+
+import argparse
 
 from learner import QLearner
-from evaluator import QEvaluator
+
+
+def _arguments_definition():
+    """
+    Method for creating the possible parameters for execution.
+    :return ArgumentParser:
+    """
+    parser = argparse.ArgumentParser(description='Runs the Q-learning.')
+    parser.add_argument(
+        '--number-of-episodes',
+        default=50000,
+        type=int,
+        help='The number of episodes (Default is 50000).')
+    parser.add_argument(
+        '--alpha',
+        default=0.01,
+        type=float,
+        help='The learning rate (Default is 0.01).')
+    parser.add_argument(
+        '--gamma',
+        default=0.5,
+        type=float,
+        help='The discount factor (Default is 0.5).')
+    parser.add_argument(
+        '--epsilon-min',
+        default=0.01,
+        type=float,
+        help='The minimum chance of performing a random action (Default is 0.01).')
+
+    return parser.parse_args()
+
 
 if __name__ == '__main__':
-    # TODO: move env to learner
-    # TODO: use argparser
-    env = gym.make('Blackjack-v0')
+    args = _arguments_definition()
 
-    learner = QLearner(env)
-    q_learning_table = learner.learn(50000, 0.01, 0.25, epsilon_min=0.2)
-
-    evaluator = QEvaluator(env)
-    evaluator.evaluate(q_learning_table, 100)
+    learner = QLearner()
+    q_learning_table = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon_min)
