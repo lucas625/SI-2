@@ -8,7 +8,6 @@ from collections import defaultdict
 import gym
 import numpy as np
 
-from evaluator import QEvaluator
 
 
 class TDLearner:
@@ -22,7 +21,6 @@ class TDLearner:
         """
         self._env = gym.make('Blackjack-v0')
         self._number_of_actions = self._env.action_space.n
-        self._evaluator = QEvaluator(self._env)
 
     def learn(self, number_of_episodes, alpha, gamma, epsilon_min):
         """

@@ -1,5 +1,5 @@
 """
-Q learning is learner init module.
+Evaluator init module.
 """
 
-from evaluator.q_learning_evaluator import QEvaluator
+from evaluator.evaluator import Evaluator
