@@ -22,7 +22,6 @@ class Evaluator:
         """
         evaluation_interval = int(len(episodes_rewards) / number_of_evaluation_intervals)
         evaluations = list()
-        evaluations.append(dict(interval=0, average_reward=0))
         for index in range(0, len(episodes_rewards), evaluation_interval):
             interval_end = index+evaluation_interval
             average_interval_reward = sum(episodes_rewards[index:interval_end]) / evaluation_interval
