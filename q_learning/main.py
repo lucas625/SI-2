@@ -35,10 +35,10 @@ def _arguments_definition():
         type=float,
         help='The discount factor (Default is 0.5).')
     parser.add_argument(
-        '--epsilon-min',
-        default=0.01,
+        '--epsilon',
+        default=0.1,
         type=float,
-        help='The minimum chance of performing a random action (Default is 0.01).')
+        help='The chance of performing a random action (Default is 0.1).')
 
     return parser.parse_args()
 
@@ -47,6 +47,6 @@ if __name__ == '__main__':
     args = _arguments_definition()
 
     learner = QLearner()
-    _, episodes_rewards = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon_min)
+    _, episodes_rewards = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon)
 
     Evaluator.evaluate(episodes_rewards, args.number_of_evaluation_intervals, '')

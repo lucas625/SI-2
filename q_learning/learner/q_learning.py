@@ -21,13 +21,13 @@ class QLearner:
         self._env = gym.make('Blackjack-v0')
         self._number_of_actions = self._env.action_space.n
 
-    def learn(self, number_of_episodes, alpha, gamma, epsilon_min):
+    def learn(self, number_of_episodes, alpha, gamma, epsilon):
         """
         Q-Learning - TD Control
         :param int number_of_episodes: the number of episodes.
         :param float alpha: the learning rate.
         :param float gamma: discount factor.
-        :param float epsilon_min: minimum chance of taking a random action.
+        :param float epsilon: chance of taking a random action.
         :return defaultdict:
             a defaultdict where each key is a state (hand, opponent-hand, you-have-usable-ace) and the values of the
             keys are a list of 2 items, the first is the average reward of sticking with your hand and the second is the
@@ -40,23 +40,22 @@ class QLearner:
         for episode_index in range(1, number_of_episodes + 1):
             self._monitor_learning_progress(episode_index, number_of_episodes)
             episodes_rewards[episode_index-1] = self._iterate_episode(
-                q_learning_table, episode_index, alpha, gamma, epsilon_min)
+                q_learning_table, episode_index, alpha, gamma, epsilon)
         print()
         return q_learning_table, episodes_rewards
 
-    def _iterate_episode(self, q_learning_table, episode_index, alpha, gamma, epsilon_min):
+    def _iterate_episode(self, q_learning_table, episode_index, alpha, gamma, epsilon):
         """
         Perform the actions necessary for running the episode.
         :param defaultdict q_learning_table: the table with the q learning values.
         :param int episode_index: the 1-based episode index.
         :param float alpha: the learning rate.
         :param float gamma: discount factor.
-        :param float epsilon_min: minimum chance of taking a random action.
+        :param float epsilon: chance of taking a random action.
         :return float: the score on the episode.
         """
         score = 0
         state = self._env.reset()  # start episode
-        epsilon = max(1.0 / episode_index, epsilon_min)  # set value of epsilon (chance of taking random action)
         done = False
         while not done:
             action = self._choose_action_by_epsilon_greedy(q_learning_table, state, epsilon)
