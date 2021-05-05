@@ -4,11 +4,16 @@ Projeto da cadeira tópicos avançados em SI 2, aprendizagem por reforço.
 
 - [SI-2](#si-2)
   - [Instalação](#instalação)
+    - [Q Learning](#q-learning)
   - [Sobre o projeto](#sobre-o-projeto)
 
 ## Instalação
 
+### Q Learning
+
 ```bash
+cd q_learning
+
 # Crie uma virtualenv.
 python3 -m venv venv
 
@@ -17,6 +22,8 @@ source venv/bin/activate
 
 # Instale as dependências.
 pip install -r requirements.txt
+
+python main.py
 ```
 
 ## Sobre o projeto
