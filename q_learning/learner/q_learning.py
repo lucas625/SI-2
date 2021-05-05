@@ -8,8 +8,6 @@ from collections import defaultdict
 import gym
 import numpy as np
 
-from evaluator import QEvaluator
-
 
 class QLearner:
     """
@@ -22,7 +20,6 @@ class QLearner:
         """
         self._env = gym.make('Blackjack-v0')
         self._number_of_actions = self._env.action_space.n
-        self._evaluator = QEvaluator(self._env)
 
     def learn(self, number_of_episodes, alpha, gamma, epsilon_min):
         """
@@ -44,8 +41,6 @@ class QLearner:
             self._monitor_learning_progress(episode_index, number_of_episodes)
             episodes_rewards[episode_index-1] = self._iterate_episode(
                 q_learning_table, episode_index, alpha, gamma, epsilon_min)
-            # TODO: evaluate every x episodes
-
         print()
         return q_learning_table, episodes_rewards
 

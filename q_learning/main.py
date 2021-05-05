@@ -4,6 +4,7 @@ Script for Q learning.
 
 import argparse
 
+from evaluator import Evaluator
 from learner import QLearner
 
 
@@ -18,6 +19,11 @@ def _arguments_definition():
         default=50000,
         type=int,
         help='The number of episodes (Default is 50000).')
+    parser.add_argument(
+        '--number-of-evaluation-intervals',
+        default=10,
+        type=int,
+        help='The number of evaluation intervals (Default is 10).')
     parser.add_argument(
         '--alpha',
         default=0.01,
@@ -41,4 +47,6 @@ if __name__ == '__main__':
     args = _arguments_definition()
 
     learner = QLearner()
-    q_learning_table = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon_min)
+    _, episodes_rewards = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon_min)
+
+    Evaluator.evaluate(episodes_rewards, args.number_of_evaluation_intervals, '')
