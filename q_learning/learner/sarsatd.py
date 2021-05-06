@@ -47,7 +47,7 @@ class TDLearner:
         print()
         return q_learning_table, episodes_rewards
 
-    def _iterate_episode(self, q_learning_table, episode_index, alpha, gamma, epsilon_min):
+    def _iterate_episode(self, q_learning_table, episode_index, alpha, gamma, epsilon):
         """
         Perform the actions necessary for running the episode.
         :param defaultdict q_learning_table: the table with the q learning values.
@@ -59,7 +59,6 @@ class TDLearner:
         """
         score = 0
         state = self._env.reset()  # start episode
-        epsilon = max(1.0 / episode_index, epsilon_min)  # set value of epsilon (chance of taking random action)
         done = False
         action = self._choose_action_by_epsilon_greedy(q_learning_table, state, epsilon)
         while not done:

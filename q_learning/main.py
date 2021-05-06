@@ -17,7 +17,7 @@ def _arguments_definition():
     parser = argparse.ArgumentParser(description='Runs the Q-learning.')
     parser.add_argument(
         '--number-of-episodes',
-        default=500000,
+        default=50000,
         type=int,
         help='The number of episodes (Default is 500000).')
     parser.add_argument(
