@@ -36,10 +36,10 @@ def _arguments_definition():
         type=float,
         help='The discount factor (Default is 1.0).')
     parser.add_argument(
-        '--epsilon-min',
-        default=0.01,
+        '--epsilon',
+        default=0.1,
         type=float,
-        help='The minimum chance of performing a random action (Default is 0.01).')
+        help='The chance of performing a random action (Default is 0.1).')
 
     return parser.parse_args()
 
