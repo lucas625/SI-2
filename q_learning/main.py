@@ -48,6 +48,6 @@ if __name__ == '__main__':
     args = _arguments_definition()
 
     learner = TDLearner()
-    _, episodes_rewards = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon_min)
+    _, episodes_rewards = learner.learn(args.number_of_episodes, args.alpha, args.gamma, args.epsilon)
 
     Evaluator.evaluate(episodes_rewards, args.number_of_evaluation_intervals, '')
