@@ -54,8 +54,8 @@ if __name__ == '__main__':
             avgs[n] = r/n
         
 
-#    V = defaultdict(float)
-#    for state, actions in agent.policy.items():
-#        V[state] = numpy.max(actions)
-#
-#    plot_value_function(V, title = 'Optimal Value Function')
+    V = defaultdict(float)
+    for state, actions in agent.policy.items():
+        V[state] = numpy.max(actions)
+
+    plot_value_function(V, title = 'Optimal Value Function')
