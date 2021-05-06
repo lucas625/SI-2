@@ -2,6 +2,7 @@
 import numpy
 import matplotlib
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from collections import defaultdict
 from agent import MonteCarloBlackjackAgent
 
@@ -44,14 +45,16 @@ if __name__ == '__main__':
     
     test = agent.learn()
     
-    threesholds = [5000 * x for x in range(1,11)] + [100000, 500000, 1000000]
     avgs = {}
     
     r = 0
-    for n in range(1, 500001):
+    for n in range(1, 10000001):
         r += next(test)
-        if n in threesholds:
+        if (n % 5000 == 0):
             avgs[n] = r/n
+    plt.plot(avgs.keys(), avgs.values())
+    plt.show()
+    plt.savefig(f'plot_iteration_{n}.png')
         
 
     V = defaultdict(float)
@@ -59,3 +62,4 @@ if __name__ == '__main__':
         V[state] = numpy.max(actions)
 
     plot_value_function(V, title = 'Optimal Value Function')
+    
