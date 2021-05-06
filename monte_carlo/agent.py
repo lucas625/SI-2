@@ -19,11 +19,14 @@ class MonteCarloBlackjackAgent:
     def policy(self):
         return self.__value_table
     
-    def evaluate(self, state):
-        return self.__value_table[state]
+    def evaluate(self, state, epsilon):
+        probs = numpy.ones(2) * epsilon / 2
+        best_action = numpy.argmax(self.__value_table[state])
+        probs[best_action] = 1 - epsilon + (epsilon / 2)
+        return probs
     
     
-    def __generate_episode(self, policy):
+    def __generate_episode(self, epsilon):
         '''
         Generates random episodes based on the current policy
         '''
@@ -32,17 +35,16 @@ class MonteCarloBlackjackAgent:
         state = self.__env.reset()
         while (not done):
             state_prime = state
-            # prob = self.evaluate(state)
-            probs = policy(state)
+            probs = self.evaluate(state, epsilon)
             action = numpy.random.choice([0, 1], p=probs)
             state, reward, done, _ = self.__env.step(action)
             episode.append((state_prime, action, reward))
-        return episode
+        return episode, state, reward
         
 
-    def learn (self, policy, gamma = 1):
+    def learn (self, gamma = 1, epsilon = 0.1):
         while (True):
-            episode = self.__generate_episode(policy)
+            episode, f_state, f_reward = self.__generate_episode(epsilon)
             G = 0
             for i, step in enumerate(episode[::-1]):
                 state, action, reward = step
@@ -53,12 +55,4 @@ class MonteCarloBlackjackAgent:
                     self.__reward_sum[pair] += G
                     self.__value_table[state][action] = \
                         self.__reward_sum[pair] / self.__visits[pair]
-            yield
-
-def generate_epsilon_greedy_policy(policy, epsilon):
-    def policy_greedy(state):
-        prob = numpy.ones(2, dtype=float) * epsilon / 2
-        best_action = numpy.argmax(policy[state])
-        prob[best_action] += 1. - epsilon
-        return prob
-    return policy_greedy
+            yield f_reward

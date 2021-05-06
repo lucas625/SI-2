@@ -3,11 +3,12 @@ import numpy
 import matplotlib
 import matplotlib.pyplot as plt
 from collections import defaultdict
-from agent import MonteCarloBlackjackAgent, generate_epsilon_greedy_policy
+from agent import MonteCarloBlackjackAgent
 
 def plot_value_function(V, title = "Value Function"):
     '''
     Plots the value function as a surface plot.
+    https://ernie55ernie.github.io/machine%20learning/2018/04/08/reinforcement-learning-simple-experiment-blackjack.html
     '''
     min_x = 11 # min(k[0] for k in V.keys())
     max_x = max(k[0] for k in V.keys())
@@ -41,15 +42,20 @@ def plot_value_function(V, title = "Value Function"):
 if __name__ == '__main__':
     agent = MonteCarloBlackjackAgent()
     
-    random_policy = defaultdict(lambda: numpy.zeros(2))
-    p = generate_epsilon_greedy_policy(random_policy, epsilon = 0.1)
-    test = agent.learn(p)
+    test = agent.learn()
     
-    for _ in range(500000):
-        next(test)
-        if (_+1 in [50000, 100000, 500000]):    
-            V = defaultdict(float)
-            for state, actions in agent.policy.items():
-                V[state] = numpy.max(actions)
+    threesholds = [5000 * x for x in range(1,11)] + [100000, 500000, 1000000]
+    avgs = {}
+    
+    r = 0
+    for n in range(1, 500001):
+        r += next(test)
+        if n in threesholds:
+            avgs[n] = r/n
+        
 
-            plot_value_function(V, title = 'Optimal Value Function')
+#    V = defaultdict(float)
+#    for state, actions in agent.policy.items():
+#        V[state] = numpy.max(actions)
+#
+#    plot_value_function(V, title = 'Optimal Value Function')
