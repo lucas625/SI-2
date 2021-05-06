@@ -17,9 +17,9 @@ def _arguments_definition():
     parser = argparse.ArgumentParser(description='Runs the Q-learning.')
     parser.add_argument(
         '--number-of-episodes',
-        default=50000,
+        default=500000,
         type=int,
-        help='The number of episodes (Default is 50000).')
+        help='The number of episodes (Default is 500000).')
     parser.add_argument(
         '--number-of-evaluation-intervals',
         default=10,
@@ -27,14 +27,14 @@ def _arguments_definition():
         help='The number of evaluation intervals (Default is 10).')
     parser.add_argument(
         '--alpha',
-        default=0.01,
+        default=0.009,
         type=float,
-        help='The learning rate (Default is 0.01).')
+        help='The learning rate (Default is 0.009).')
     parser.add_argument(
         '--gamma',
-        default=0.5,
+        default=1.0,
         type=float,
-        help='The discount factor (Default is 0.5).')
+        help='The discount factor (Default is 1.0).')
     parser.add_argument(
         '--epsilon-min',
         default=0.01,
